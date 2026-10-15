@@ -1,0 +1,90 @@
+name: Katabump Auto Renew
+
+on:
+  schedule:
+    # 每天 UTC 0 点（北京时间 8 点）
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install System & Python Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb x11-utils xdotool scrot fonts-noto-cjk
+          pip install seleniumbase requests
+          seleniumbase install chromedriver
+
+      - name: Start Proxy (sing-box)
+        env:
+          PROXY_URL: ${{ secrets.PROXY_URL }}
+        run: |
+          if [ -z "$PROXY_URL" ]; then
+            echo "PROXY_URL not set, skipping sing-box setup."
+            exit 0
+          fi
+          SINGBOX_VER="1.13.16"
+          echo "Downloading sing-box v${SINGBOX_VER}..."
+          wget -q "https://github.com/SagerNet/sing-box/releases/download/v${SINGBOX_VER}/sing-box-${SINGBOX_VER}-linux-amd64.tar.gz"
+          tar -xzf "sing-box-${SINGBOX_VER}-linux-amd64.tar.gz"
+          mv "sing-box-${SINGBOX_VER}-linux-amd64/sing-box" ./sing-box
+          chmod +x ./sing-box
+          echo "Generating sing-box config from PROXY_URL..."
+          python proxy_handler.py
+          echo "Starting sing-box..."
+          nohup ./sing-box run -c config.json > singbox.log 2>&1 &
+          sleep 24
+          echo "--- singbox.log ---"
+          cat singbox.log || true
+          echo "--- health check ---"
+          if ! pgrep -f "./sing-box" > /dev/null; then
+            echo "❌ sing-box process not running"
+            exit 1
+          fi
+          echo "✅ sing-box process alive"
+          echo "--- proxy connectivity test ---"
+          if ! curl -s -m 30 -x http://127.0.0.1:8080 https://api.ip.sb/ip; then
+            echo ""
+            echo "❌ proxy connect FAILED — no reachable node in pool"
+            exit 1
+          else
+            echo ""
+            echo "  <- proxy OK"
+            grep -iE "urltest|selected|node-" singbox.log | tail -5 || true
+          fi
+
+      - name: Run Renew Script
+        env:
+          USERS_JSON: ${{ secrets.USERS_JSON }}
+          KATABUMP_EMAIL: ${{ secrets.KATABUMP_EMAIL }}
+          KATABUMP_PASSWORD: ${{ secrets.KATABUMP_PASSWORD }}
+          PROXY_SERVER: http://127.0.0.1:8080
+          IS_PROXY: ${{ secrets.PROXY_URL != '' && 'true' || 'false' }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" python3 main.py
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: renew-artifacts
+          path: |
+            *.png
+            screenshots/
+            singbox.log
+            config.json
+          if-no-files-found: ignore
