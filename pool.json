@@ -1,0 +1,212 @@
+[
+ {
+  "name": "台湾_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 11000,
+  "sni": "sync-01.riverfolder.com"
+ },
+ {
+  "name": "台湾_BGP_B",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 11001,
+  "sni": "sync-02.riverfolder.com"
+ },
+ {
+  "name": "台湾_BGP_C",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 11002,
+  "sni": "sync-03.riverfolder.com"
+ },
+ {
+  "name": "台湾_BGP_D",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 11003,
+  "sni": "sync-04.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13000,
+  "sni": "files-01.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_B",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13001,
+  "sni": "files-02.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_C",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13002,
+  "sni": "files-03.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_D",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13003,
+  "sni": "files-04.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_E",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13004,
+  "sni": "media-01.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_F",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13005,
+  "sni": "media-02.riverfolder.com"
+ },
+ {
+  "name": "新加坡_BGP_G",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 13006,
+  "sni": "media-03.riverfolder.com"
+ },
+ {
+  "name": "日本_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 12000,
+  "sni": "cdn-01.riverfolder.com"
+ },
+ {
+  "name": "日本_BGP_B",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 12001,
+  "sni": "cdn-02.riverfolder.com"
+ },
+ {
+  "name": "日本_BGP_C",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 12002,
+  "sni": "cdn-03.riverfolder.com"
+ },
+ {
+  "name": "日本_BGP_D",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 12003,
+  "sni": "cdn-04.riverfolder.com"
+ },
+ {
+  "name": "日本_BGP_E",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 12004,
+  "sni": "cdn-05.riverfolder.com"
+ },
+ {
+  "name": "日本_BGP_F",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 12005,
+  "sni": "cdn-06.riverfolder.com"
+ },
+ {
+  "name": "澳大利亚_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 17000,
+  "sni": "assets-01.riverfolder.com"
+ },
+ {
+  "name": "美国_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 14000,
+  "sni": "download-01.riverfolder.com"
+ },
+ {
+  "name": "美国_BGP_B",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 14001,
+  "sni": "download-02.riverfolder.com"
+ },
+ {
+  "name": "美国_BGP_C",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 14002,
+  "sni": "download-03.riverfolder.com"
+ },
+ {
+  "name": "美国_BGP_D",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 14003,
+  "sni": "content-01.riverfolder.com"
+ },
+ {
+  "name": "美国_BGP_E",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 14004,
+  "sni": "content-02.riverfolder.com"
+ },
+ {
+  "name": "英国_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 16000,
+  "sni": "static-01.riverfolder.com"
+ },
+ {
+  "name": "韩国_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 15000,
+  "sni": "service-01.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_A",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10000,
+  "sni": "api-02.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_B",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10001,
+  "sni": "api-03.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_C",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10002,
+  "sni": "api-04.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_D",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10003,
+  "sni": "api-05.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_E",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10004,
+  "sni": "gateway-01.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_F",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10005,
+  "sni": "gateway-02.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_G",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10006,
+  "sni": "gateway-03.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_H",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10007,
+  "sni": "gateway-04.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_I",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10008,
+  "sni": "gateway-05.riverfolder.com"
+ },
+ {
+  "name": "香港_BGP_J",
+  "server": "lb.download.strawberrymemo.com",
+  "port": 10009,
+  "sni": "api-01.riverfolder.com"
+ }
+]
