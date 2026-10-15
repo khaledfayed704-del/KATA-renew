@@ -43,7 +43,7 @@ CURRENT_CHAT_ID = ""
 def send_tg_message(status_icon, status_text, time_left="", chat_id=None):
     target_chat_id = chat_id or CURRENT_CHAT_ID or TG_CHAT_ID
     if not TG_BOT_TOKEN or not target_chat_id:
-        print("ℹ️ 未配置 TG_BOT_TOKEN 或 chat_id，跳过 Telegram 推送。")
+        print("ℹ️ لم يتم تعيين TG_BOT_TOKEN أو chat_id، تم تخطي إرسال إشعار تيليجرام.")
         return
     local_time = time.gmtime(time.time() + 8 * 3600)
     current_time_str = time.strftime("%Y-%m-%d %H:%M:%S", local_time)
@@ -58,13 +58,14 @@ def send_tg_message(status_icon, status_text, time_left="", chat_id=None):
         masked_email = (email[:2] + '****') if email else "未知"
     detail = (time_left or "").strip()
     text = (
-        f"🇫🇷 katabump 续期通知\n\n"
+        f"LYNOX\n"
+        f"🔔 إشعار تجديد Katabump\n\n"
         f"{status_icon} {status_text}\n"
-        f"👤 续期账户: {masked_email}\n"
-        f"⏱️ 续期时间: {current_time_str}"
+        f"👤 الحساب: {masked_email}\n"
+        f"⏱️ وقت التجديد: {current_time_str}"
     )
     if detail:
-        text += f"\n📋 详情: {detail}"
+        text += f"\n📝 التفاصيل: {detail}"
     url = f"https://api.telegram.org/bot{TG_BOT_TOKEN}/sendMessage"
     payload = {"chat_id": target_chat_id, "text": text}
     try:
@@ -462,7 +463,7 @@ def _goto_server_detail(sb, chat_id="") -> bool:
     alert_text = _read_alert(sb)
     if alert_text and "can't renew" in alert_text.lower():
         print(f"ℹ️  页面顶部提示: {alert_text}")
-        send_tg_message("ℹ️", "⚠️ 未到续期时间", alert_text, chat_id=chat_id)
+        send_tg_message("ℹ️", "⚠️ لم يحن وقت التجديد بعد", alert_text, chat_id=chat_id)
         return False
     see_link = None
     try:
@@ -568,14 +569,14 @@ def _check_renew_result(sb, chat_id=""):
         print(f"📩 页面提示: {alert_text}")
         low = alert_text.lower()
         if "can't renew" in low or "unable" in low:
-            send_tg_message("⏳", "未到续期时间", alert_text, chat_id=chat_id)
+            send_tg_message("⏳", "لم يحن وقت التجديد بعد", alert_text, chat_id=chat_id)
         elif any(kw in low for kw in ("renewed", "success", "extended")):
-            send_tg_message("✅", "续期成功", alert_text, chat_id=chat_id)
+            send_tg_message("✅", "تم التجديد بنجاح", alert_text, chat_id=chat_id)
         else:
-            send_tg_message("ℹ️", "续期操作已执行", alert_text, chat_id=chat_id)
+            send_tg_message("ℹ️", "تم تنفيذ عملية التجديد", alert_text, chat_id=chat_id)
     else:
         print("ℹ️ 未检测到明确的提示框，可能续期操作未生效")
-        send_tg_message("ℹ️", "续期操作已执行", "未检测到明确提示", chat_id=chat_id)
+        send_tg_message("ℹ️", "تم تنفيذ عملية التجديد", "لم يتم رصد إشعار واضح", chat_id=chat_id)
 
 def renew_server(sb, chat_id=""):
     print("\n" + "#" * 25)
@@ -606,11 +607,11 @@ def _run_account(sb_kwargs, email, pwd, chat_id="") -> bool:
                 return True
             else:
                 print("\n❌ 登录失败，终止该账号续期操作。")
-                send_tg_message("❌", "登录失败", "未知", chat_id=chat_id)
+                send_tg_message("❌", "فشل تسجيل الدخول", "غير معروف", chat_id=chat_id)
                 return False
     except Exception as e:
         print(f"\n❌ 账号 {email} 处理异常: {e}")
-        send_tg_message("❌", f"处理异常: {e}", "未知", chat_id=chat_id)
+        send_tg_message("❌", f"حدث خطأ: {e}", "غير معروف", chat_id=chat_id)
         return False
 
 def main():
@@ -649,7 +650,7 @@ def main():
             ok_count += 1
         else:
             print(f"❌ 账号 {email} 所有节点尝试均失败")
-            send_tg_message("❌", "节点尝试均失败", f"{max_attempts} 次不同代理节点", chat_id=acc.get("chat_id", ""))
+            send_tg_message("❌", "فشلت جميع محاولات التجديد", f"{max_attempts} محاولة", chat_id=acc.get("chat_id", ""))
     print("\n" + "#" * 25)
     print(f"  全部账号处理完毕: {ok_count}/{len(ACCOUNTS)} 成功")
     print("#" * 25)
